@@ -31,7 +31,7 @@ def test_FDCT2D_2dsignal(par):
         x.shape, FDCTop.nbscales, FDCTop.nbangles_coarse, FDCTop.allcurvelets,
         cpx=False if par['imag'] == 0 else True)
 
-    y_op = FDCTop(x.ravel())
+    y_op = FDCTop * x.ravel()
     y_ct = FDCTct.fwd(x)
 
     np.testing.assert_array_almost_equal(y_op, y_ct, decimal=8)
@@ -56,7 +56,7 @@ def test_FDCT3D_3dsignal(par):
         x.shape, FDCTop.nbscales, FDCTop.nbangles_coarse, FDCTop.allcurvelets,
         cpx=False if par['imag'] == 0 else True)
 
-    y_op = FDCTop(x.ravel())
+    y_op = FDCTop * x.ravel()
     y_ct = FDCTct.fwd(x)
 
     np.testing.assert_array_almost_equal(y_op, y_ct, decimal=8)
