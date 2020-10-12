@@ -31,7 +31,7 @@ def _fdct_docs(dimension):
         nbscales : :obj:`int`, optional
             Number of scales (including the coarsest level);
             Defaults to ceil(log2(min(input_dims)) - 3).
-        nbscales : :obj:`int`, optional
+        nbangles_coarse : :obj:`int`, optional
             Number of angles at 2nd coarsest scale
         allcurvelets : :obj:`bool`, optional
             Use curvelets at all scales, including coarsest scale.
