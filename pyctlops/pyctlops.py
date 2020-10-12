@@ -100,6 +100,9 @@ class FDCT(LinearOperator):
     def struct(self, v):
         return self.FDCT.struct(v)
 
+    def vect(self, v):
+        return self.FDCT.vect(v)
+
 
 class FDCT2D(FDCT):
     __doc__ = _fdct_docs(2)
