@@ -82,11 +82,7 @@ class FDCT(LinearOperator):
         self.nbangles_coarse = nbangles_coarse
         self.allcurvelets = allcurvelets
 
-        out_len = 0
-        for i in self.FDCT.sizes:
-            for j in i:
-                out_len += np.prod(j)
-
+        out_len = sum(np.prod(j) for i in self.FDCT.sizes for j in i)
         self.shape = [out_len, np.prod(input_shape)]
         self.dtype = np.dtype(dtype)
         self.explicit = False
