@@ -5,6 +5,7 @@ Provides a Linear Operator for the Curvelet transform to interface with PyLops.
 import pyct as ct
 import numpy as np
 from pylops import LinearOperator
+from itertools import product
 
 
 def _fdct_docs(dimension):
@@ -55,6 +56,9 @@ class FDCT(LinearOperator):
 
     def __init__(self, dims, dirs, nbscales=None, nbangles_coarse=16,
                  allcurvelets=True, dtype='complex128'):
+        ndim = len(dims)
+        dirs = [np.core.multiarray.normalize_axis_index(d, ndim) for d in dirs]
+
         input_shape = list(dims[d] for d in dirs)
         if nbscales is None:
             nbscales = int(np.ceil(np.log2(min(input_shape)) - 3))
@@ -75,23 +79,44 @@ class FDCT(LinearOperator):
         self.FDCT = ctfdct(list(input_shape),
                            nbscales, nbangles_coarse, allcurvelets,
                            norm=False, cpx=cpx)
+        self._iterable_axes = [
+            False if i in dirs else True for i in range(ndim)]
         self.dims = dims
         self.dirs = dirs
         self.input_shape = input_shape
+        self.out_len = sum(np.prod(j) for i in self.FDCT.sizes for j in i)
+        self.iterable_dims = np.prod(np.array(self.dims)[self._iterable_axes])
+
         self.nbscales = nbscales
         self.nbangles_coarse = nbangles_coarse
         self.allcurvelets = allcurvelets
 
-        out_len = sum(np.prod(j) for i in self.FDCT.sizes for j in i)
-        self.shape = [out_len, np.prod(input_shape)]
+        self.shape = [self.iterable_dims * self.out_len, np.prod(dims)]
         self.dtype = np.dtype(dtype)
         self.explicit = False
 
     def _matvec(self, x):
-        return self.FDCT.fwd(np.reshape(x, self.input_shape))
+        iterator = product(
+            *(range(self.dims[ax]) if doiter else[slice(None)] for ax,
+              doiter in enumerate(self._iterable_axes)))
+        fwd_out = np.zeros(self.shape[0], dtype=self.dtype)
+
+        iterator = product(*(range(self.dims[ax]) if doiter else[slice(None)]
+                             for ax, doiter in enumerate(self._iterable_axes)))
+        x_reshape = x.reshape(self.dims)
+        for i, index in enumerate(iterator):
+            fwd_out[i:i+self.out_len] = self.FDCT.fwd(x_reshape[index]).ravel()
+        return fwd_out
 
     def _rmatvec(self, x):
-        return self.FDCT.inv(x)
+        iterator = product(*(range(self.dims[ax]) if doiter else[slice(None)]
+                             for ax, doiter in enumerate(self._iterable_axes)))
+        inv_out = np.zeros(self.dims, dtype=np.dtype)
+        for i, index in enumerate(iterator):
+            inv_out[index] = self.FDCT.inv(
+                x[i:i+self.out_len]).reshape(self.input_shape)
+
+        return inv_out.ravel()
 
     def struct(self, v):
         return self.FDCT.struct(v)
