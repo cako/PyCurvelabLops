@@ -58,7 +58,7 @@ You must ensure that `FFTW` and `FDCT` enviroment variables are set. In Bash, th
 
 ```bash
 export FFTW=/home/user/opt/fftw-2.1.5
-export FDCT=/home/cdacosta/opt/CurveLab-2.1.3
+export FDCT=/home/user/opt/CurveLab-2.1.3
 ```
 
 Then enter the PyCurvelab directory and run
@@ -67,7 +67,14 @@ Then enter the PyCurvelab directory and run
 python3 setup.py build install --record files.txt
 ```
 
-This installation has been tested with Python 3.6 and 3.7.
+This installation has been tested against Python 3.6 and 3.7.
+
+If it complains of a missing `Python.h` file, you must install the Python header files. In Ubuntu, you can try
+
+```bash
+sudo apt install python3.6-dev
+```
+
 To ensure that it has been installed, open you python interpreter and try to `import pyct`. If you get the following error
 
 ```bash
@@ -77,7 +84,7 @@ ModuleNotFoundError: No module named '_fdct2_wrapper'
 try
 
 ```bash
-export PYTHONPATH=/path/to/python3
+export PYTHONPATH=/path/to/my/python3
 ```
 
 In my experience this is only required in virtual environments and only for the first import but YMMV.
