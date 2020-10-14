@@ -33,6 +33,7 @@ def main():
             "pyct",
             "pylops",
             "numpy",
+            "scipy",
         ],
         license=LICENSE,
         test_suite='pytests',
