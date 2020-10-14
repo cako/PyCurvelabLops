@@ -1,4 +1,4 @@
-# `pyctlops`: PyCurvelabLops
+# PyCurvelabLops
 
 Thin [PyLops](https://pylops.readthedocs.io/) wrapper for [PyCurvelab](https://github.com/slimgroup/PyCurvelab)
 
@@ -27,7 +27,13 @@ Add the flag `-e` to install in developer mode.
 
 ## Get Started
 
-An excellent place to start is the `examples/` folder. `Demo_Single_Curvelet` for example contains a `pyctlops` version of the CurveLab Matlab demo.
+Start with:
+
+```python
+import pyctlops
+```
+
+An excellent place to see how to use the library is the `examples/` folder. `Demo_Single_Curvelet` for example contains a `pyctlops` version of the CurveLab Matlab demo.
 ![Demo](https://github.com/cako/PyCurvelabLops/raw/main/docs/source/static/demo.png)
 
 ## Tips and Tricks for Dependencies
