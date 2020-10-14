@@ -28,7 +28,7 @@ Add the flag `-e` to install in developer mode.
 ## Get Started
 
 An excellent place to start is the `examples/` folder. `Demo_Single_Curvelet` for example contains a `pyctlops` version of the CurveLab Matlab demo.
-![Demo](https://github.com/cako/PyCurvelabLops/raw/master/docs/source/static/demo.png)
+![Demo](https://github.com/cako/PyCurvelabLops/raw/main/docs/source/static/demo.png)
 
 ## Tips and Tricks for Dependencies
 
