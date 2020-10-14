@@ -93,6 +93,9 @@ class FDCT(LinearOperator):
     def _rmatvec(self, x):
         return self.FDCT.inv(x)
 
+    def inverse(self, x):
+        return self._rmatvec(x)
+
     def struct(self, v):
         return self.FDCT.struct(v)
 
