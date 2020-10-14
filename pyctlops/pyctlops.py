@@ -83,7 +83,7 @@ class FDCT(LinearOperator):
         self.allcurvelets = allcurvelets
 
         out_len = sum(np.prod(j) for i in self.FDCT.sizes for j in i)
-        self.shape = [out_len, np.prod(input_shape)]
+        self.shape = (out_len, np.prod(input_shape))
         self.dtype = np.dtype(dtype)
         self.explicit = False
 
