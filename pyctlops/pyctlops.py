@@ -91,7 +91,7 @@ class FDCT(LinearOperator):
         self.nbangles_coarse = nbangles_coarse
         self.allcurvelets = allcurvelets
 
-        self.shape = [self.iterable_dims * self.out_len, np.prod(dims)]
+        self.shape = (self.iterable_dims * self.out_len, np.prod(dims))
         self.dtype = np.dtype(dtype)
         self.explicit = False
 
@@ -117,6 +117,9 @@ class FDCT(LinearOperator):
                 x[i:i+self.out_len]).reshape(self.input_shape)
 
         return inv_out.ravel()
+
+    def inverse(self, x):
+        return self._rmatvec(x)
 
     def struct(self, v):
         return self.FDCT.struct(v)
