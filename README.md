@@ -1,6 +1,6 @@
-# `pyctlop`: PyCurvelabLops
+# `pyctlops`: PyCurvelabLops
 
-Thin PyLops wrapper for PyCurvelab
+Thin [PyLops](https://pylops.readthedocs.io/) wrapper for [PyCurvelab](https://github.com/slimgroup/PyCurvelab)
 
 ## Installation
 
