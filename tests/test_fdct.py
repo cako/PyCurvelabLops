@@ -7,10 +7,10 @@ from pyctlops import FDCT2D, FDCT3D
 
 
 pars = [
+    {'nx': 32, 'ny': 32, 'nz': 32, 'imag': 0, 'dtype': 'float64'},
+    {'nx': 32, 'ny': 32, 'nz': 32, 'imag': 1j, 'dtype': 'complex128'},
     {'nx': 32, 'ny': 32, 'nz': 64, 'imag': 0, 'dtype': 'float64'},
-    # {'nx': 32, 'ny': 32, 'nz': 64, 'imag': 0, 'dtype': 'complex128'},
-    # {'nx': 32, 'ny': 16, 'nz': 64, 'imag': 1j, 'dtype': 'float64'},
-    {'nx': 32, 'ny': 16, 'nz': 64, 'imag': 1j, 'dtype': 'complex128'},
+    {'nx': 32, 'ny': 32, 'nz': 64, 'imag': 1j, 'dtype': 'complex128'},
     {'nx': 100, 'ny': 50, 'nz': 20, 'imag': 0, 'dtype': 'float64'},
     {'nx': 100, 'ny': 50, 'nz': 20, 'imag': 1j, 'dtype': 'complex128'},
 ]
