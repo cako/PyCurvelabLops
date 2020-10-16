@@ -1,6 +1,8 @@
+[![PyPI version](https://badge.fury.io/py/pyctlops.svg)](https://badge.fury.io/py/pyctlops)
+
 # PyCurvelabLops
 
-Thin [PyLops](https://pylops.readthedocs.io/) wrapper for [PyCurvelab](https://github.com/slimgroup/PyCurvelab)
+Thin [PyLops](https://pylops.readthedocs.io/) wrapper for [PyCurvelab](https://github.com/slimgroup/PyCurvelab). Don't know what PyLops is? PyLops provides a framework for performing matrix-free linear operations. This package provides a `LinearOperator` for performing the FDCT in 2D and 3D (contained in the PyCurvelab package) which works seamlessly with other PyLops operators. 
 
 ## Installation
 
@@ -11,19 +13,12 @@ Installing PyCurvelabLops requires the following components:
 - [SWIG](http://www.swig.org/) >= 1.3
 - [PyCurvelab](https://github.com/slimgroup/PyCurvelab)
 
-After these are installed, you may install PyCurvelabLops directly from GitHub:
+All of these packages *must be installed manually*. See more information below.
+After these are installed, you may install PyCurvelabLops with:
 
 ```bash
-pip install git+https://github.com/cako/PyCurvelabLops
+pip install pyctlops
 ```
-
-or you may download and install from the unpackaged repo:
-
-```bash
-pip install ./PyCurvelabLops/
-```
-
-Add the flag `-e` to install in developer mode.
 
 ## Get Started
 
