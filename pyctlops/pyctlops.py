@@ -136,11 +136,11 @@ class FDCT(LinearOperator):
     def inverse(self, x):
         return self._rmatvec(x)
 
-    def struct(self, v):
-        return self.FDCT.struct(v)
+    def struct(self, x):
+        return self.FDCT.struct(x)
 
-    def vect(self, v):
-        return self.FDCT.vect(v)
+    def vect(self, x):
+        return self.FDCT.vect(x)
 
 
 class FDCT2D(FDCT):
