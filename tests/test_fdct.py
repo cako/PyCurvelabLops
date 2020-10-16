@@ -103,3 +103,42 @@ def test_FDCT3D_3dsignal(par):
 
     np.testing.assert_array_almost_equal(y_op, y_ct, decimal=64)
     assert y_op.dtype == y_ct.dtype
+
+
+@pytest.mark.parametrize("par", pars)
+def test_FDCT3D_4dsignal(par):
+    """
+    Tests for FDCT3D operator for 4d signal.
+    """
+    x = np.random.normal(0., 1., (par['nx'], 4, par['ny'], par['nz'])) + \
+        np.random.normal(0., 1., (par['nx'], 4, par['ny'], par['nz'])) * \
+        par['imag']
+    dirs = [0, -2, -1]
+    FDCTop = FDCT3D(dims=(par['nx'], 4, par['ny'], par['nz']),
+                    dirs=dirs, dtype=par['dtype'])
+
+    # Some tests fail for complexflag = 3 (?)
+    assert dottest(FDCTop, *FDCTop.shape, tol=1e-12,
+                   complexflag=0 if par['imag'] == 0 else 2)
+
+    # Check if forward transforms are the same using the raw operator
+    FDCTct = ct.fdct3([x.shape[d] for d in dirs], FDCTop.nbscales,
+                      FDCTop.nbangles_coarse, FDCTop.allcurvelets,
+                      cpx=False if par['imag'] == 0 else True)
+
+    y_op = FDCTop * x.ravel()
+    y_ct = np.zeros_like(y_op)
+    n = FDCTop._output_len
+    for i in range(4):
+        y_ct[i*n:(i+1)*n] = np.array(FDCTct.fwd(x[:, i, :, :]))
+
+    np.testing.assert_array_almost_equal(y_op, y_ct, decimal=64)
+    assert y_op.dtype == y_ct.dtype
+
+    # Check if inverse transforms are the same using the raw operator
+    x_op = (FDCTop.H * y_op).reshape(x.shape)
+    x_ct = np.zeros_like(x)
+    for i in range(4):
+        x_ct[:, i, :, :] = FDCTct.inv(y_op[i*n:(i+1)*n])
+    np.testing.assert_array_almost_equal(x_op, x_ct, decimal=64)
+    assert x_op.dtype == x_ct.dtype
