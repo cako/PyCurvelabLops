@@ -146,18 +146,22 @@ class FDCT(LinearOperator):
 class FDCT2D(FDCT):
     __doc__ = _fdct_docs(2)
 
-    def __init__(
-            self, dims, dirs=(0, 1),
-            nbscales=None, nbangles_coarse=16, allcurvelets=True,
-            dtype='complex128'):
+    def __init__(self, dims, dirs=(-2, -1),
+                 nbscales=None, nbangles_coarse=16, allcurvelets=True,
+                 dtype='complex128'):
+        if len(dirs) != 2:
+            raise ValueError(
+                "FDCT2D must be called with exactly two directions")
         super().__init__(dims, dirs, nbscales, nbangles_coarse, allcurvelets, dtype)
 
 
 class FDCT3D(FDCT):
     __doc__ = _fdct_docs(3)
 
-    def __init__(
-            self, dims, dirs=(0, 1, 2),
-            nbscales=None, nbangles_coarse=16, allcurvelets=True,
-            dtype='complex128'):
+    def __init__(self, dims, dirs=(-3, -2, -1),
+                 nbscales=None, nbangles_coarse=16, allcurvelets=True,
+                 dtype='complex128'):
+        if len(dirs) != 3:
+            raise ValueError(
+                "FDCT3D must be called with exactly three directions")
         super().__init__(dims, dirs, nbscales, nbangles_coarse, allcurvelets, dtype)
